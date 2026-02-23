@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TodoManager.Domain.Models
 {
-    internal class TodoItem
+    public class TodoItem
     {
         public int Id { get; set; }
         public string Title { get; }
