@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TodoManager"
-             StartupUri="MainWindow.xaml">
+             StartupUri="TodoListWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
 </Application>
+c:\users\trist\desktop\graduaat\c-advanced\todomanager\todomanager\todomanager\TodoListWindow.xaml
+c:\users\trist\desktop\graduaat\c-advanced\todomanager\todomanager\todomanager\todolistwindow.xaml.cs
