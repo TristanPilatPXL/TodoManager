@@ -12,8 +12,8 @@ namespace TodoManager.Domain.Models
         public string Title { get; }
         public string? Description { get; }
         public DateTime DueDate { get; }
-        public bool IsCompleted { get; private set; }
-        public DateTime? CompletedAt { get; private set; }
+        public bool IsCompleted { get; set; }
+        public DateTime? CompletedAt { get; set; }
 
         public TodoItem(string title, string? description, DateTime dueDate)
         {
@@ -28,7 +28,6 @@ namespace TodoManager.Domain.Models
             DueDate = dueDate;
 
             IsCompleted = false;
-            CompletedAt = null;
         }
 
         public void MarkAsCompleted()

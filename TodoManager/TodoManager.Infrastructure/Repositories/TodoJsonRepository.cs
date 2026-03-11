@@ -16,6 +16,9 @@ namespace TodoManager.Infrastructure.Repositories
     {
         private readonly string _dataFolder;
         private readonly string _filePath;
+        
+
+
 
 
 
@@ -60,6 +63,32 @@ namespace TodoManager.Infrastructure.Repositories
             }
         }
 
+        public void Complete(TodoItem item)
+        {
+            List<TodoItem> todoItems = GetAll();
+
+            TodoItem toComplete = todoItems.FirstOrDefault(a =>
+                a.Title.Equals(item.Title, StringComparison.OrdinalIgnoreCase));
+
+            if (toComplete == null)
+                throw new InvalidOperationException("niet gevonden.");
+
+            if (!toComplete.IsCompleted)
+            {
+                toComplete.IsCompleted = true;
+                toComplete.CompletedAt = DateTime.Now;
+
+            }
+
+            string json = JsonSerializer.Serialize(todoItems, new JsonSerializerOptions { WriteIndented = true });
+
+            
+
+            File.WriteAllText(_filePath, json);
+
+
+        }
+
         public TodoItem Get(int id)
         {
             List<TodoItem> items = GetAll();
@@ -72,9 +101,19 @@ namespace TodoManager.Infrastructure.Repositories
         {
             List<TodoItem> items = GetAll();
 
-            items.Remove(item);
+            TodoItem toRemove = items.FirstOrDefault(a =>
+                a.Title.Equals(item.Title, StringComparison.OrdinalIgnoreCase));
 
-            return true;
+
+            // Stap 3: Als de appointment niet bestaat, gooi een foutmelding
+            if (items.Remove(item))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

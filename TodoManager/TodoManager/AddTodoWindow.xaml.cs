@@ -5,9 +5,9 @@ namespace TodoManager.WPF
 {
     public partial class AddTodoWindow : Window
     {
-        public string TodoTitle { get; set; } 
-        public string? TodoDescription { get; set; }
-        public DateTime TodoDueDate { get; set; }
+        public string TodoTitle { get; private set; } 
+        public string? TodoDescription { get; private set; }
+        public DateTime TodoDueDate { get; private set; }
 
         public AddTodoWindow()
         {

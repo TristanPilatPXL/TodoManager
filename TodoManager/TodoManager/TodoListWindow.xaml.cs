@@ -30,7 +30,7 @@ namespace TodoManager.WPF
 
 
             TodoJsonRepository jsonRepository = new TodoJsonRepository();
-            _todoService = new TodoService();
+            _todoService = new TodoService(jsonRepository);
             // RefreshTodos();
         }
 
@@ -138,7 +138,13 @@ namespace TodoManager.WPF
             // TODO: try-catch
             try
             {
-                _todoService.DeleteTodo(todo);
+                // Haal de geselecteerde appointment op uit de ListBox
+                TodoItem selected = todosListBox.SelectedItem as TodoItem
+                    ?? throw new InvalidOperationException("Selecteer een afspraak om te annuleren.");
+
+
+
+                _todoService.DeleteTodo(selected);
                 RefreshTodos();
             }
             catch (ArgumentException ex)

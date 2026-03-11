@@ -10,7 +10,7 @@ namespace TodoManager.Application.Services
     {
         private readonly TodoJsonRepository _repository;//juiste repo kiezen waar json actief is oops
 
-        public TodoService()
+        public TodoService(TodoJsonRepository todoJsonRepository)
         {
             _repository = new TodoJsonRepository();
         }
@@ -22,6 +22,7 @@ namespace TodoManager.Application.Services
 
         public void AddTodo(string title, string? description, DateTime dueDate)
         {
+           
             // check op duplicate titel (case-insensitive)
             if (_repository.GetAll().Any(t => string.Equals(t.Title, title, StringComparison.OrdinalIgnoreCase)))
             {
@@ -34,10 +35,7 @@ namespace TodoManager.Application.Services
 
         public void CompleteTodo(TodoItem todo)
         {
-            if (todo is null) throw new ArgumentNullException(nameof(todo));
-
-            var existing = _repository.Get(todo.Id);
-            existing.MarkAsCompleted();
+            _repository.Complete(todo);
         }
 
         public void DeleteTodo(TodoItem todo)
