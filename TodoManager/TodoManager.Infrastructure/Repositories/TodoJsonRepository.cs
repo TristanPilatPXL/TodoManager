@@ -22,7 +22,7 @@ namespace TodoManager.Infrastructure.Repositories
         public TodoJsonRepository()
         {
             _dataFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "todos");
-            _filePath = Path.Combine(_dataFolder, "todos.json");
+            _filePath = Path.Combine(_dataFolder, "papi.json");
 
             if (!Directory.Exists(_dataFolder))
                 Directory.CreateDirectory(_dataFolder);

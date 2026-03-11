@@ -30,7 +30,7 @@ namespace TodoManager.WPF
 
 
             TodoJsonRepository jsonRepository = new TodoJsonRepository();
-            _todoService = new TodoService(jsonRepository);
+            _todoService = new TodoService();
             // RefreshTodos();
         }
 
@@ -90,7 +90,7 @@ namespace TodoManager.WPF
             }
 
             // TODO: try-catch
-            // TODO: _todoService.AddTodo(addWindow.TodoTitle, addWindow.TodoDescription, addWindow.TodoDueDate);
+            // _todoService.AddTodo(addWindow.TodoTitle, addWindow.TodoDescription, addWindow.TodoDueDate);
             try
             {
                 _todoService.AddTodo(addWindow.TodoTitle, addWindow.TodoDescription, addWindow.TodoDueDate);

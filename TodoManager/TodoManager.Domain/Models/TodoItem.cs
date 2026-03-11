@@ -9,36 +9,32 @@ namespace TodoManager.Domain.Models
     public class TodoItem
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Title { get; }
         public string? Description { get; }
         public DateTime DueDate { get; }
         public bool IsCompleted { get; private set; }
         public DateTime? CompletedAt { get; private set; }
 
-        public TodoItem(string title, string description, DateTime dueDate)
+        public TodoItem(string title, string? description, DateTime dueDate)
         {
-
-            //titel moet
             if (string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentException("title cannot be null, empty, or whitespace");
+                throw new ArgumentException("Title is verplicht.", nameof(title));
             }
 
-
-            //dit mag null zijn
-            Description = description;
-            Title = title;
+            // assign properties
+            Title = title.Trim();
+            Description = description?.Trim();
             DueDate = dueDate;
+
             IsCompleted = false;
             CompletedAt = null;
         }
 
         public void MarkAsCompleted()
         {
-
             IsCompleted = true;
             CompletedAt = DateTime.Now;
-         
         }
 
         public override string ToString()
@@ -47,5 +43,4 @@ namespace TodoManager.Domain.Models
             return $"{status} {Title} (due {DueDate:dd/MM/yyyy})";
         }
     }
-
 }
