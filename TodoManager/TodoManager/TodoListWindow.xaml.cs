@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TodoManager.Application.Services;
 using TodoManager.Domain.Models;
+using TodoManager.Infrastructure.Repositories;
 
 namespace TodoManager.WPF
 {
@@ -27,7 +28,9 @@ namespace TodoManager.WPF
         {
             InitializeComponent();
 
-            _todoService = new TodoService();
+
+            TodoJsonRepository jsonRepository = new TodoJsonRepository();
+            _todoService = new TodoService(jsonRepository);
             // RefreshTodos();
         }
 

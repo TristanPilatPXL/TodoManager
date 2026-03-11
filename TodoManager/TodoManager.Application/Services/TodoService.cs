@@ -10,12 +10,12 @@ namespace TodoManager.Application.Services
 {
     public class TodoService
     {
-        private readonly TodoRepository _repository;
+        private readonly TodoJsonRepository _repository;
 
-        public TodoService()
+        public TodoService(TodoJsonRepository todoJsonRepository)
         {
             // TODO: maak de repository aan
-            _repository = new TodoRepository();
+            _repository = todoJsonRepository;
         }
 
         public List<TodoItem> GetTodos()
@@ -24,14 +24,23 @@ namespace TodoManager.Application.Services
             return _repository.GetAll();
         }
 
-        public void AddTodo(string title, string? description, DateTime dueDate)
+        public void AddTodo(string title, string description, DateTime dueDate)
         {
-            // TODO: als duplicate -> throw new InvalidOperationException("Een todo met dezelfde titel bestaat reeds.");
-            throw new InvalidOperationException("Een todo met dezelfde titel bestaat reeds");
+            bool alreadyExists = _repository.GetAll().Any(a =>
+                a.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+
+            if (alreadyExists)
+                throw new InvalidOperationException("Deze appointment bestaat al.");
 
 
-            TodoItem todo = new TodoItem(title, description, dueDate);
-            _repository.Add(todo);
+            TodoItem newTodoItem = new TodoItem(
+                title,
+                description,
+                dueDate
+                );
+
+            _repository.Add(newTodoItem);
+
         }
 
         public void CompleteTodo(TodoItem todo)

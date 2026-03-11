@@ -9,25 +9,26 @@ namespace TodoManager.Domain.Models
     public class TodoItem
     {
         public int Id { get; set; }
-        public string Title { get; }
+        public string Title { get; set; }
         public string? Description { get; }
         public DateTime DueDate { get; }
         public bool IsCompleted { get; private set; }
         public DateTime? CompletedAt { get; private set; }
 
-        public TodoItem(string title, string? description, DateTime dueDate)
+        public TodoItem(string title, string description, DateTime dueDate)
         {
 
             //titel moet
             if (string.IsNullOrWhiteSpace(title))
             {
-                throw new ArgumentNullException("title cannot be null, empty, or whitespace");
+                throw new ArgumentException("title cannot be null, empty, or whitespace");
             }
 
 
             //dit mag null zijn
-            description = description?.Trim();
-
+            Description = description;
+            Title = title;
+            DueDate = dueDate;
             IsCompleted = false;
             CompletedAt = null;
         }
